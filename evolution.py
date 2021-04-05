@@ -43,15 +43,14 @@ class EvoAlgorithm(object):
     def log(self):
         ''' Print out a summary of all generations
         '''
-        generations = self.generations.keys()
-        for generation in generations:
-            print '%sth Generation:' % generation
-            bestindex = np.argmax(self.outputs)
-            for index, inputs in enumerate(self.inputs):
+        for index, generation in self.generations.iteritems():
+            print '%sth Generation:' % index
+            bestindex = np.argmax(generation['outputs'])
+            for i, inputs in enumerate(generation['inputs']):
                 print '    %s: %s %s' % (
                     inputs,
-                    self.outputs[index],
-                    '*' if index == bestindex else ''
+                    generation['outputs'][i],
+                    '*' if i == bestindex else ''
                 )
 
     def run(self, ngenerations, children=4):
